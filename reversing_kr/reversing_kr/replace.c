@@ -8,9 +8,7 @@ unsigned int getinput()
 
 int main()
 {
-	char tang[100];
-
 	printf("%u\n", getinput());
-	printf("%s\n", tang);
+
 	system("pause");
 }//*/
