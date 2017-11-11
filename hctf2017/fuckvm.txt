@@ -1,0 +1,118 @@
+05 01 0b ; r1=r11(szInput)
+13 03 03 ; i=0
+13 00 00 ; r0=0
+13 04 04 ; r4=0
+28       ; rec=xiamian g=1
+label1:
+0c 00 33 ; r0+=0x33
+14 00 20 ; r0%=0x20
+05 09 01 ; r9=r1
+11 09 00 ; r9+=r0
+0b 0a 09 ; r10 = (int)*r9
+01 04 0a ; r4=(int)r10
+1b 05 04 ; [r5]=r4 r5+=4 (push r4
+0c 03 01 ; i+=1
+24 03 20 ; is_smaller = i<0x20
+28       ; jmp label1 if smaller, else g=0 and no jmp
+
+
+13 00 00 ; r0=0
+07 08 05 ; r8=r5
+0e 08 e0 ; r8-=32*4 ;bei keng le ya
+07 02 08 ; r2=r8
+09 0a 02 ; r10=[r2]
+01 00 0a ; r0=(int)r10
+18 00 e0 ; r0&=0xe0
+1e 00 05 ; r0=5
+01 04 00 ; r4=(int)r0
+13 03 03 ; i=0
+28       ; rec=xiamian g=1
+label2:
+09 0a 02 ; r10=[r2]
+01 00 0a ; r0=(int)r10
+18 00 1f ; r0&=0x1f
+20 00 03 ; r0<<=3
+1b 05 00 ; [r5]=r0 r5+=4
+07 08 05 ; r8=r5
+0e 08 e0 ; r8-=32*4
+07 02 08 ; r2=r8
+09 0a 02 ; r10=[r2]
+01 00 0a ; r0=(int)r10
+18 00 e0 ; r0&=0xe0
+1e 00 05 ; r0=5
+1d 05 0a ; r5-=4 r10=[r5]
+0d 0a 00 ; r10+=r0
+1b 05 0a ; [r5]=r10 r5+=4
+0c 03 01 ; i+=1
+24 03 1f ; is_smaller = i<0x1f
+28       ; jmp label2 if smaller, else g=0
+
+
+09 0a 02 ; r10=[r2]
+01 00 0a ; r0=(int)r10
+18 00 1f ; r0&=0x1f
+20 00 03 ; r0<<=3
+0d 00 04 ; r0+=r4
+1b 05 00 ; [r5]=r0 r5+=4
+13 03 03 ; i=0
+03 04 0d ; r4=r13
+28       ; rec=xiamian g=1
+label3:
+07 08 05 ; r8=r5
+0e 08 e0 ; r8-=32*4
+07 02 08 ; r2=r8
+09 0a 02 ; r10=[r2]
+01 00 0a ; r0=(int)r10
+1b 05 00 ; [r5]=r0 r5+=4
+01 00 04 ; r0=(int)r4
+0d 00 03 ; r0+=i
+1d 05 0a ; r5-=4 r10=[r5]
+13 0a 00 ; r10^=r0
+1b 05 0a ; [r5]=r10 r5+=4
+22 04 08 ; rotate r4 8
+0c 03 01 ; i+=1
+24 03 20 ; is_smaller = i<0x20
+28       ; jmp label3 if smaller, else g=0
+13 03 03 ; i=0
+13 04 04 ; r4=0
+05 01 0c ; r1=r12
+28       ; rec=xiamian g=1
+label4:
+05 09 01 ; r9=r1
+11 09 03 ; r9+=i
+0b 0a 09 ; r10 = (int)*r9
+01 00 0a ; r0=(int)r10
+1b 05 00 ; [r5]=r0 r5+=4
+07 08 05 ; r8=r5
+0e 08 df ; r8-=33*4
+09 0a 08 ; r10=[r8]
+1d 05 00 ; r5-=4 r0=[r5]
+1b 05 00 ; [r5]=r0 r5+=4
+27 00 0a ; r7 = r0!=r10
+17 04 07 ; r4|=r7
+0c 03 01 ; i+=1
+24 03 20 ; is_smaller = i<0x20
+28       ; jmp label4 if smaller, else g=0
+2a       ; test result
+
+
+
+
+
+
+
+
+
+
+
+
+ff82:52e6
+de ad be ef 0xefbeadde
+ad be ef de 0xdeefbead
+
+8
+
+
+00 19 a8 12 01 00 00 00 a4 54
+82 ff 10 54 82 ff 00 00 00 00 00 60 70 f7 00 60
+70 f7 00 00 00
