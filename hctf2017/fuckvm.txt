@@ -19,11 +19,11 @@ label1:
 13 00 00 ; r0=0
 07 08 05 ; r8=r5
 0e 08 e0 ; r8-=32*4 ;bei keng le ya
-07 02 08 ; r2=r8
+07 02 08 ; r2=r8    ;r2 now is the processed input from above
 09 0a 02 ; r10=[r2]
 01 00 0a ; r0=(int)r10
 18 00 e0 ; r0&=0xe0
-1e 00 05 ; r0=5
+1e 00 05 ; r0>>=5 ;r0 = (input2[i] & 0xe0) >> 5
 01 04 00 ; r4=(int)r0
 13 03 03 ; i=0
 28       ; rec=xiamian g=1
@@ -31,18 +31,18 @@ label2:
 09 0a 02 ; r10=[r2]
 01 00 0a ; r0=(int)r10
 18 00 1f ; r0&=0x1f
-20 00 03 ; r0<<=3
-1b 05 00 ; [r5]=r0 r5+=4
+20 00 03 ; r0<<=3 ;r0 = (input2[i] & 0x1f) << 3
+1b 05 00 ; [r5]=r0 r5+=4 ;push r0
 07 08 05 ; r8=r5
 0e 08 e0 ; r8-=32*4
 07 02 08 ; r2=r8
 09 0a 02 ; r10=[r2]
-01 00 0a ; r0=(int)r10
+01 00 0a ; r0=(int)r10 ; r0=input2[i+1]
 18 00 e0 ; r0&=0xe0
-1e 00 05 ; r0=5
+1e 00 05 ; r0>>=5 ; r0 = (input2[i + 1] & 0xe0) >> 5
 1d 05 0a ; r5-=4 r10=[r5]
 0d 0a 00 ; r10+=r0
-1b 05 0a ; [r5]=r10 r5+=4
+1b 05 0a ; [r5]=r10 r5+=4 ; [sp]+=r0
 0c 03 01 ; i+=1
 24 03 1f ; is_smaller = i<0x1f
 28       ; jmp label2 if smaller, else g=0
@@ -57,26 +57,35 @@ label2:
 13 03 03 ; i=0
 03 04 0d ; r4=r13
 28       ; rec=xiamian g=1
+
+;[i]low5 [i+1]high3 put together
+;result = [i]low5 : [i+1]high3
+;push 32 times
+
 label3:
 07 08 05 ; r8=r5
-0e 08 e0 ; r8-=32*4
+0e 08 e0 ; r8-=32*4 (r2=r8=&input2[i])
 07 02 08 ; r2=r8
 09 0a 02 ; r10=[r2]
 01 00 0a ; r0=(int)r10
-1b 05 00 ; [r5]=r0 r5+=4
+1b 05 00 ; [r5]=r0 r5+=4 ; push input2[i](sx possible)
 01 00 04 ; r0=(int)r4
 0d 00 03 ; r0+=i
 1d 05 0a ; r5-=4 r10=[r5]
 13 0a 00 ; r10^=r0
-1b 05 0a ; [r5]=r10 r5+=4
-22 04 08 ; rotate r4 8
+1b 05 0a ; [r5]=r10 r5+=4 ; push ((0xffffffxx+i)^input2[i])
+22 04 08 ; rotate r4 8 ;rotate r4 8
 0c 03 01 ; i+=1
 24 03 20 ; is_smaller = i<0x20
 28       ; jmp label3 if smaller, else g=0
+
+
+
 13 03 03 ; i=0
 13 04 04 ; r4=0
-05 01 0c ; r1=r12
+05 01 0c ; r1=r12 ;key
 28       ; rec=xiamian g=1
+
 label4:
 05 09 01 ; r9=r1
 11 09 03 ; r9+=i
@@ -99,16 +108,15 @@ label4:
 
 
 
-
-
-
-
+13 06 19 0c 1f 12 05 18 0b 1e 11 04 17 0a 1d 10 03 16 09 1c 0f 02 15 08 1b 0e 01 14 07 1a 0d 00
 
 
 
 ff82:52e6
 de ad be ef 0xefbeadde
 ad be ef de 0xdeefbead
+
+unsigned char rotateKey[] = {0xde,0xad,0xbe,0xef}
 
 8
 
