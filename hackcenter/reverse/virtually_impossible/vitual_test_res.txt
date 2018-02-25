@@ -1,0 +1,9 @@
+0x804e200:	00	d6	ce	e5
+0x804e210:	3d	14	d0	e2
+0x804e220:	5b	d1	81	d6
+0x804e230:	ce	e5	3d	14
+0x804e240:	d0	e2	5b	d1
+0x804e250:	81	d6	ce	e5
+0x804e260:	3d	14	f3
+
+"\x14\x3d\xe5\xce\xd6\x81\xd1\x5b\xe2\xd0\x14\x3d\xe5\xce\xd6\x81\xd1\x5b\xe2\xd0\x14\x3d\xe5\xce\xd6"
