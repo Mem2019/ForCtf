@@ -1,0 +1,28 @@
+delete: b *(0x555555554000 + 0xF2B)
+uninitialized var: 0x7fffffffdc78
+
+int print_ins()
+{
+  puts("welcome to the new RNote service");
+  puts("1. Add new note");
+  puts("2. View a note");
+  puts("3. Edit a note");
+  puts("4. Delete a note");
+  return puts("5. Exit");
+}
+
+x/33gx (0x555555554000 + 0x202060)
+
+# leak
+	"1111", size 16
+	"0000", size 256
+	"2222", size 16
+
+	delete "1111"
+	delete "0000"
+
+	"0000", size 256
+	delete "undef", so "0000" being deleted
+	"leak", size 16
+
+	show "leak"
