@@ -1,0 +1,9 @@
+get opcode from idx: b *0x08049184
+parse reg for lw: b *0x8049C21
+parse lw: b *0x08049B37
+assign lw: b *0x804AF0E
+assign sw: b *0x804AF68
+
+2155911683 memory to set as retn
+
+feof -0x653b0 == base
